@@ -298,6 +298,9 @@ static void test_vec_insert( void )
     ALWAYS_ASSERT( *el == 59 - i );
   }
 
+  // out of bound
+  ALWAYS_ASSERT(!insert(&our_vec, 234, 43));
+
   VEC_CHECK;
 
   cleanup( &our_vec );
