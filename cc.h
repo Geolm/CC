@@ -214,6 +214,13 @@ Including the library:
       By default, CC exposes API macros without the "cc_" prefix.
       Define this flag to withhold the unprefixed names.
 
+    #define CC_USE_ASSERT
+      Define this flag to raise assert in critical case (out of bound access for example)
+
+    #define CC_OUTBOUND_CHECK
+      By default, CC does not check out of bound access (you can get a value out of bound, insert anywhere etc...)
+      Define this flag will make CC functions return NULL in case of out of bound access
+
   The following can be defined anywhere and affect all calls to API macros where the definition is visible:
   
     #define CC_REALLOC our_realloc
