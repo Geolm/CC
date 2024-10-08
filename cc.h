@@ -840,6 +840,9 @@ License (MIT):
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
+#ifdef CC_USE_ASSERT
+#include <assert.h>
+#endif
 #ifdef __cplusplus
 #include <type_traits>
 #endif
@@ -1522,6 +1525,15 @@ static inline void *cc_vec_get(
   CC_UNUSED( cc_cmpr_fnptr_ty, cmpr )
 )
 {
+#ifdef CC_USE_ASSERT
+  assert(*(size_t *)key < cc_vec_size(cntr));
+#endif
+
+#ifdef CC_OUTBOUND_CHECK
+  if (*(size_t *)key >= cc_vec_size(cntr))
+    return NULL;
+#endif
+
   return (char *)cntr + sizeof( cc_vec_hdr_ty ) + el_size * *(size_t *)key;
 }
 
@@ -1572,6 +1584,15 @@ static inline cc_allocing_fn_result_ty cc_vec_insert_n(
   cc_realloc_fnptr_ty realloc_
 )
 {
+#ifdef CC_USE_ASSERT
+  assert(index <= cc_vec_size(cntr));
+#endif
+
+#ifdef CC_OUTBOUND_CHECK
+  if (index > cc_vec_size(cntr))
+    return cc_make_allocing_fn_result( cntr, NULL );
+#endif
+
   if( n == 0 )
     return cc_make_allocing_fn_result( cntr, NULL );
 
@@ -1659,6 +1680,15 @@ static inline void *cc_vec_erase_n(
   cc_dtor_fnptr_ty el_dtor
 )
 {
+#ifdef CC_USE_ASSERT
+  assert(index < cc_vec_size(cntr));
+#endif
+
+#ifdef CC_OUTBOUND_CHECK
+  if (index >= cc_vec_size(cntr))
+    return NULL;
+#endif
+
   if( n == 0 )
     return (char *)cntr + sizeof( cc_vec_hdr_ty ) + el_size * index;
 

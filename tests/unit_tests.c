@@ -36,6 +36,7 @@ License (MIT):
 #include <stdlib.h>
 #include <time.h>
 
+#define CC_OUTBOUND_CHECK
 #include "../cc.h"
 
 // Assert macro that is not disabled by NDEBUG.
@@ -155,6 +156,11 @@ static void test_vec_reserve( void )
 
   // Test validity through use.
   UNTIL_SUCCESS( push_n( &our_vec, expected, 60 ) );
+
+  // Test out of bound
+  ALWAYS_ASSERT(get(&our_vec, 60) == NULL);
+  ALWAYS_ASSERT(get(&our_vec, 70) == NULL);
+  ALWAYS_ASSERT(erase(&our_vec, 65) == NULL);
 
   VEC_CHECK;
 
