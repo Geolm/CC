@@ -1,3 +1,7 @@
+## geolm fork features
+* added a macro CC_USE_ASSERT to assert in case of out of bound access
+* added a macro CC_OUTOFBOUND_CHECK to return safetely when accessing out of bounds of the container
+
 <picture><img src="./header.svg" alt="CC: Convenient Containers"></picture>
 
 Convenient Containers (**CC**) is a small, usability-oriented generic container library for C that provides **vectors**, **doubly linked lists**, **unordered maps**, **unordered sets**, **ordered maps**, and **ordered sets**.
