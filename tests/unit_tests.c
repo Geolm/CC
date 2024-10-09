@@ -36,7 +36,7 @@ License (MIT):
 #include <stdlib.h>
 #include <time.h>
 
-#define CC_OUTBOUND_CHECK
+#define CC_OUTOFBOUND_CHECK
 #include "../cc.h"
 
 // Assert macro that is not disabled by NDEBUG.
